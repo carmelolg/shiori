@@ -281,6 +281,8 @@ hr {
 .header-logo:hover { text-decoration: none; color: var(--clr-accent); }
 .header-logo img { height: 28px; width: auto; }
 .header-logo-text { display: block; }
+
+.header-search-wrap {
   flex: 1;
   max-width: 480px;
 }
@@ -290,13 +292,14 @@ hr {
   align-items: center;
   gap: var(--sp-2);
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .icon-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px; height: 36px;
+  width: 34px; height: 34px;
   border: 1px solid var(--clr-border);
   border-radius: var(--r-md);
   background: transparent;
@@ -305,6 +308,11 @@ hr {
   transition: all var(--tr-fast);
   text-decoration: none;
   font-size: var(--text-sm);
+  line-height: 1;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+  flex-shrink: 0;
 }
 .icon-btn:hover {
   background: var(--clr-bg-tertiary);
@@ -312,7 +320,7 @@ hr {
   text-decoration: none;
   border-color: var(--clr-border-strong);
 }
-.icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+.icon-btn svg { width: 16px; height: 16px; fill: currentColor; display: block; }
 
 #hamburger { display: none; }
 
@@ -1442,5 +1450,3 @@ hr {
   .header-search-wrap { display: none; }
   .header-logo-text { display: block; }
 }
-
-  /* logo text always visible */
