@@ -1,0 +1,56 @@
+[home]
+other = "Home"
+
+[documentation]
+other = "Documentation"
+
+[search_placeholder]
+other = "Search docs…"
+
+[on_this_page]
+other = "On this page"
+
+[get_started]
+other = "Get Started"
+
+[pages]
+other = "pages"
+
+[edit_page]
+other = "Edit this page"
+
+[prev]
+other = "Previous"
+
+[next]
+other = "Next"
+
+[auth]
+other = "Authentication"
+
+[version]
+other = "Version"
+
+[section]
+other = "Section"
+
+[tags]
+other = "Tags"
+
+[path_params]
+other = "Path Parameters"
+
+[query_params]
+other = "Query Parameters"
+
+[request_headers]
+other = "Request Headers"
+
+[request_body]
+other = "Request Body"
+
+[responses]
+other = "Responses"
+
+[examples]
+other = "Examples"

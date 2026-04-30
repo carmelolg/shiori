@@ -1,0 +1,62 @@
+{{ define "main" }}
+<div class="content-inner">
+
+  {{ partial "breadcrumbs.html" . }}
+
+  <h1 class="page-title">{{ .Title }}</h1>
+
+  {{ with .Description }}
+  <p class="page-summary">{{ . }}</p>
+  {{ end }}
+
+  {{ with .Content }}
+  <div class="prose" style="margin-bottom: var(--sp-8);">{{ . }}</div>
+  {{ end }}
+
+  <!-- List all pages in this section -->
+  {{ if eq .Type "api" }}
+  <!-- API Reference: show as list with method badges -->
+  <ul class="api-list">
+    {{ range .Pages.ByWeight }}
+    <a class="api-list-item" href="{{ .RelPermalink }}">
+      {{ with .Params.method }}
+      <span class="method-badge method-{{ . | lower }}">{{ . | upper }}</span>
+      {{ end }}
+      <div class="api-list-item-body">
+        <div class="api-list-item-title">{{ .Title }}</div>
+        {{ with .Params.summary }}
+        <div class="api-list-item-summary">{{ . }}</div>
+        {{ end }}
+        {{ with .Params.endpoint }}
+        <div class="api-list-item-endpoint">{{ . }}</div>
+        {{ end }}
+      </div>
+      {{ if .Params.deprecated }}
+      <span class="badge badge-red">deprecated</span>
+      {{ end }}
+    </a>
+    {{ end }}
+  </ul>
+  {{ else }}
+  <!-- Articles / Design: show as cards -->
+  <div class="section-grid">
+    {{ range .Pages.ByWeight }}
+    <a class="card" href="{{ .RelPermalink }}">
+      <div class="card-title">{{ .Title }}</div>
+      {{ with .Params.summary }}
+      <div class="card-description">{{ . }}</div>
+      {{ end }}
+      {{ if .Params.tags }}
+      <div class="tags-list" style="margin-top: var(--sp-3);">
+        {{ range .Params.tags }}
+        <span class="tag-link">{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+</div>
+{{ end }}

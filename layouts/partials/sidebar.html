@@ -1,0 +1,56 @@
+{{- $currentPage := . -}}
+
+<!-- Version badge -->
+{{ with .Site.Params.version }}
+<div class="sidebar-version">
+  <span class="version-tag">v{{ . }}</span>
+</div>
+{{ end }}
+
+<!-- Sidebar search -->
+<div class="sidebar-search-wrap">
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 16 16"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg>
+    <input
+      id="sidebar-search-input"
+      class="search-input"
+      type="search"
+      placeholder="{{ i18n "search_placeholder" | default "Search…" }}"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Search"
+    >
+    <div id="sidebar-search-results" class="search-results" role="listbox"></div>
+  </div>
+</div>
+
+<nav aria-label="Documentation navigation">
+  {{- range .Site.Sections }}
+  {{- $section := . }}
+  {{- $sectionPages := .Pages.ByWeight }}
+
+  {{ if $sectionPages }}
+  <div class="sidebar-section">
+    <span class="sidebar-section-title">{{ .Title }}</span>
+
+    <!-- Section index link -->
+    <ul class="sidebar-nav-list">
+      {{- range $sectionPages }}
+      {{- $isActive := eq $currentPage.RelPermalink .RelPermalink }}
+      <li class="sidebar-nav-item{{ if $isActive }} active{{ end }}">
+        <a href="{{ .RelPermalink }}" aria-current="{{ if $isActive }}page{{ else }}false{{ end }}">
+          {{- if eq .Type "api" }}
+            {{- with .Params.method }}
+            <span class="method-badge-xs badge-{{ . | lower }}">{{ . | upper }}</span>
+            {{- end }}
+          {{- end }}
+          {{- .Title }}
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+  <hr class="sidebar-divider">
+  {{ end }}
+  {{- end }}
+</nav>

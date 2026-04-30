@@ -1,0 +1,13 @@
+name        = "Shiori"
+license     = "MIT"
+licenselink = "https://github.com/carmelolg/shiori/blob/main/LICENSE"
+description = "A clean, professional Hugo theme for technical software documentation — API references, design documents, and developer guides."
+homepage    = "https://github.com/carmelolg/shiori"
+demosite    = "https://carmelolg.github.io/shiori/"
+tags        = ["documentation", "api", "technical", "developer", "library", "reference", "dark-mode", "search"]
+features    = ["API Reference", "Dark Mode", "Syntax Highlighting", "Client-side Search", "Responsive", "TOC", "i18n", "Prev/Next Navigation", "Code Copy", "Callouts"]
+min_version = "0.100.0"
+
+[author]
+  name     = "carmelolg"
+  homepage = "https://github.com/carmelolg"

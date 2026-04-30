@@ -1,0 +1,17 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <span>
+      {{ with .Site.Params.author }}{{ . }} — {{ end }}
+      Built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>
+      &amp; <a href="https://github.com/carmelolg/shiori" target="_blank" rel="noopener">Shiori</a>
+    </span>
+    <div class="footer-links">
+      {{ with .Site.Params.github }}
+      <a href="{{ . }}" target="_blank" rel="noopener">GitHub</a>
+      {{ end }}
+      {{ with .Site.Params.website }}
+      <a href="{{ . }}" target="_blank" rel="noopener">Website</a>
+      {{ end }}
+    </div>
+  </div>
+</footer>

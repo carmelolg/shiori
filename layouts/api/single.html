@@ -1,0 +1,239 @@
+{{ define "main" }}
+<div class="content-inner">
+
+  {{ partial "breadcrumbs.html" . }}
+
+  <!-- Page title -->
+  <h1 class="page-title">
+    {{ .Title }}
+    {{ if .Params.deprecated }}
+    <span class="deprecated-badge">Deprecated</span>
+    {{ end }}
+  </h1>
+
+  {{ with .Params.summary }}
+  <p class="page-summary">{{ . }}</p>
+  {{ end }}
+
+  <!-- Endpoint banner -->
+  {{ if or .Params.method .Params.endpoint }}
+  <div class="api-endpoint">
+    {{ with .Params.method }}
+    <span class="method-badge method-{{ . | lower }}">{{ . | upper }}</span>
+    {{ end }}
+    {{ with .Params.endpoint }}
+    <code class="endpoint-path">
+      {{- /* Highlight path params like {id} */ -}}
+      {{- . | replaceRE `\{([^}]+)\}` `<span class="path-param">{$1}</span>` | safeHTML -}}
+    </code>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <!-- API Meta grid: auth / version / section -->
+  {{ if or .Params.auth .Params.version .Params.section }}
+  <div class="api-meta-grid">
+    {{ with .Params.auth }}
+    <div class="api-meta-item">
+      <div class="api-meta-label">{{ i18n "auth" | default "Authentication" }}</div>
+      <div class="api-meta-value">{{ . }}</div>
+    </div>
+    {{ end }}
+    {{ with .Params.version }}
+    <div class="api-meta-item">
+      <div class="api-meta-label">{{ i18n "version" | default "Version" }}</div>
+      <div class="api-meta-value">{{ . }}</div>
+    </div>
+    {{ end }}
+    {{ with .Params.section }}
+    <div class="api-meta-item">
+      <div class="api-meta-label">{{ i18n "section" | default "Section" }}</div>
+      <div class="api-meta-value">{{ . }}</div>
+    </div>
+    {{ end }}
+    {{ if .Params.tags }}
+    <div class="api-meta-item">
+      <div class="api-meta-label">{{ i18n "tags" | default "Tags" }}</div>
+      <div class="api-meta-value">
+        <div class="tags-list" style="margin:0;">
+          {{ range .Params.tags }}
+          <span class="tag-link">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <!-- Page content (markdown body) -->
+  {{ with .Content }}
+  <div class="prose">{{ . }}</div>
+  {{ end }}
+
+  <!-- ── Path Parameters ────────────────────────── -->
+  {{ with .Params.parameters.path }}
+  <h2 class="api-section-title" id="path-parameters">
+    {{ i18n "path_params" | default "Path Parameters" }}
+    <span class="required-note">* required</span>
+  </h2>
+  <table class="params-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td><span class="param-name">{{ .name }}</span>{{ if .required }}<span class="param-required">*</span>{{ end }}</td>
+        <td><span class="param-type">{{ .type | default "string" }}</span></td>
+        <td>{{ if .required }}✓{{ else }}—{{ end }}</td>
+        <td>{{ .description | markdownify }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  <!-- ── Query Parameters ───────────────────────── -->
+  {{ with .Params.parameters.query }}
+  <h2 class="api-section-title" id="query-parameters">{{ i18n "query_params" | default "Query Parameters" }}</h2>
+  <table class="params-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td><span class="param-name">{{ .name }}</span>{{ if .required }}<span class="param-required">*</span>{{ end }}</td>
+        <td><span class="param-type">{{ .type | default "string" }}</span></td>
+        <td>{{ if .required }}✓{{ else }}—{{ end }}</td>
+        <td>{{ .description | markdownify }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  <!-- ── Request Headers ────────────────────────── -->
+  {{ with .Params.parameters.headers }}
+  <h2 class="api-section-title" id="request-headers">{{ i18n "request_headers" | default "Request Headers" }}</h2>
+  <table class="params-table">
+    <thead>
+      <tr>
+        <th>Header</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td><span class="param-name">{{ .name }}</span>{{ if .required }}<span class="param-required">*</span>{{ end }}</td>
+        <td><span class="param-type">{{ .type | default "string" }}</span></td>
+        <td>{{ if .required }}✓{{ else }}—{{ end }}</td>
+        <td>{{ .description | markdownify }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  <!-- ── Request Body ───────────────────────────── -->
+  {{ with .Params.requestBody }}
+  <h2 class="api-section-title" id="request-body">{{ i18n "request_body" | default "Request Body" }}</h2>
+  {{ with .contentType }}
+  <p style="font-size:var(--text-sm);color:var(--clr-text-muted);margin-bottom:var(--sp-3);">
+    Content-Type: <code>{{ . }}</code>
+  </p>
+  {{ end }}
+  {{ with .description }}<p class="prose">{{ . | markdownify }}</p>{{ end }}
+  {{ with .example }}
+  <pre><code class="language-json">{{ . }}</code></pre>
+  {{ end }}
+  {{ with .fields }}
+  <table class="params-table">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td><span class="param-name">{{ .name }}</span>{{ if .required }}<span class="param-required">*</span>{{ end }}</td>
+        <td><span class="param-type">{{ .type | default "string" }}</span></td>
+        <td>{{ if .required }}✓{{ else }}—{{ end }}</td>
+        <td>{{ .description | markdownify }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+  {{ end }}
+
+  <!-- ── Responses ──────────────────────────────── -->
+  {{ with .Params.responses }}
+  <h2 class="api-section-title" id="responses">{{ i18n "responses" | default "Responses" }}</h2>
+  <table class="responses-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      {{- $code := .code | string -}}
+      {{- $class := "status-2xx" -}}
+      {{- if hasPrefix $code "3" }}{{- $class = "status-3xx" -}}{{ end -}}
+      {{- if hasPrefix $code "4" }}{{- $class = "status-4xx" -}}{{ end -}}
+      {{- if hasPrefix $code "5" }}{{- $class = "status-5xx" -}}{{ end -}}
+      <tr>
+        <td><span class="status-badge {{ $class }}">{{ $code }}</span></td>
+        <td>
+          {{ .description | markdownify }}
+          {{ with .body }}
+          <pre style="margin-top:var(--sp-2);"><code class="language-json">{{ . }}</code></pre>
+          {{ end }}
+        </td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  <!-- ── Code Examples ──────────────────────────── -->
+  {{ with .Params.examples }}
+  <h2 class="api-section-title" id="examples">{{ i18n "examples" | default "Examples" }}</h2>
+  <div class="code-examples">
+    <div class="code-tabs-nav">
+      {{ range . }}
+      <button class="code-tab-btn" type="button">{{ .lang }}</button>
+      {{ end }}
+    </div>
+    {{ range . }}
+    <div class="code-tab-panel">
+      <pre><code>{{ .code }}</code></pre>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ partial "prev-next.html" . }}
+
+</div>
+{{ end }}

@@ -1,0 +1,15 @@
+{{ if not .IsHome }}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{ "/" | relURL }}">{{ i18n "home" | default "Home" }}</a>
+  <span class="sep" aria-hidden="true">/</span>
+
+  {{ if .Section }}
+  {{ with .Site.GetPage .Section }}
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="sep" aria-hidden="true">/</span>
+  {{ end }}
+  {{ end }}
+
+  <span class="current" aria-current="page">{{ .Title }}</span>
+</nav>
+{{ end }}

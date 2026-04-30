@@ -1,0 +1,49 @@
+baseURL      = "https://carmelolg.github.io/shiori/"
+title        = "MyLib Docs"
+theme        = "shiori"
+locale       = "en"
+paginate     = 20
+
+[params]
+  description  = "Official documentation for MyLib — a fast, type-safe utility library for modern applications."
+  author       = "carmelolg"
+  version      = "2.3.1"
+  github       = "https://github.com/carmelolg/mylib"
+  editBaseURL  = "https://github.com/carmelolg/mylib/edit/main/docs/content"
+  logoText     = "MyLib"
+  install      = "npm install mylib"
+  quickStartURL = "/articles/getting-started/"
+  heroTitle    = "MyLib <span>Documentation</span>"
+  dateFormat   = "January 2, 2006"
+
+[markup]
+  [markup.highlight]
+    noClasses          = false
+    lineNos            = false
+    codeFences         = true
+    guessSyntax        = true
+    tabWidth           = 2
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[outputs]
+  home    = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page    = ["HTML"]
+
+[taxonomies]
+  tag = "tags"
+
+[menu]
+  [[menu.main]]
+    name   = "API Reference"
+    url    = "/api/"
+    weight = 1
+  [[menu.main]]
+    name   = "Articles"
+    url    = "/articles/"
+    weight = 2
+  [[menu.main]]
+    name   = "Design"
+    url    = "/design/"
+    weight = 3

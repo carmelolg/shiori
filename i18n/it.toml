@@ -1,0 +1,56 @@
+[home]
+other = "Home"
+
+[documentation]
+other = "Documentazione"
+
+[search_placeholder]
+other = "Cerca nella documentazione…"
+
+[on_this_page]
+other = "In questa pagina"
+
+[get_started]
+other = "Inizia"
+
+[pages]
+other = "pagine"
+
+[edit_page]
+other = "Modifica questa pagina"
+
+[prev]
+other = "Precedente"
+
+[next]
+other = "Successivo"
+
+[auth]
+other = "Autenticazione"
+
+[version]
+other = "Versione"
+
+[section]
+other = "Sezione"
+
+[tags]
+other = "Tag"
+
+[path_params]
+other = "Parametri del percorso"
+
+[query_params]
+other = "Parametri di query"
+
+[request_headers]
+other = "Intestazioni della richiesta"
+
+[request_body]
+other = "Corpo della richiesta"
+
+[responses]
+other = "Risposte"
+
+[examples]
+other = "Esempi"
