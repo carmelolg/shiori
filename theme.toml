@@ -1,6 +1,6 @@
 name        = "Shiori"
-license     = "MIT"
-licenselink = "https://github.com/carmelolg/shiori/blob/main/LICENSE"
+license     = "CC-BY-NC-SA-4.0"
+licenselink = "https://github.com/carmelolg/shiori/blob/master/LICENSE"
 description = "A clean, professional Hugo theme for technical software documentation — API references, design documents, and developer guides."
 homepage    = "https://github.com/carmelolg/shiori"
 demosite    = "https://carmelolg.github.io/shiori/"

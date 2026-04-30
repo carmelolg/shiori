@@ -1,7 +1,7 @@
 # Shiori — Hugo Documentation Theme
 
 [![Hugo Version](https://img.shields.io/badge/Hugo-0.100.0+-blue)](https://gohugo.io/)
-[![License](https://img.shields.io/badge/License-MIT-brightgreen)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue)](LICENSE)
 
 **Shiori** (栞) means *bookmark* or *page marker* in Japanese — a fitting name for a technical documentation theme.
 
@@ -235,4 +235,4 @@ hugo --minify
 
 ## 📄 License
 
-[MIT](LICENSE) © carmelolg
+Licensed under [CC BY-NC-SA 4.0](LICENSE) © carmelolg.

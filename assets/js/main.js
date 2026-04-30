@@ -52,20 +52,39 @@
     const hamburger = document.getElementById("hamburger");
     const sidebar   = document.querySelector(".site-sidebar");
     const overlay   = document.querySelector(".sidebar-overlay");
+    const sidebarClose = document.getElementById("sidebar-close");
 
     function openSidebar() {
+      document.body.classList.add("sidebar-open");
       sidebar && sidebar.classList.add("open");
       overlay && overlay.classList.add("visible");
+      hamburger && hamburger.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
     }
     function closeSidebar() {
+      document.body.classList.remove("sidebar-open");
       sidebar && sidebar.classList.remove("open");
       overlay && overlay.classList.remove("visible");
+      hamburger && hamburger.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
     }
+    function toggleSidebar() {
+      if (sidebar && sidebar.classList.contains("open")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    }
 
-    if (hamburger) hamburger.addEventListener("click", openSidebar);
+    if (hamburger) hamburger.addEventListener("click", toggleSidebar);
     if (overlay)   overlay.addEventListener("click", closeSidebar);
+    if (sidebarClose) sidebarClose.addEventListener("click", closeSidebar);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeSidebar();
+    });
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768) closeSidebar();
+    });
 
     // Close sidebar on nav link click (mobile)
     if (sidebar) {
@@ -164,6 +183,8 @@
       const nav    = container.querySelector(".code-tabs-nav");
       const btns   = nav ? nav.querySelectorAll(".code-tab-btn") : [];
       const panels = container.querySelectorAll(".code-tab-panel");
+      if (!nav || !btns.length || !panels.length) return;
+      container.classList.add("js-ready");
       btns.forEach(function (btn, i) {
         btn.addEventListener("click", function () {
           btns.forEach(function (b)   { b.classList.remove("active"); });

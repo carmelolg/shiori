@@ -226,8 +226,10 @@
       {{ end }}
     </div>
     {{ range . }}
+    {{- $lexer := .lang | lower -}}
+    {{- if eq $lexer "curl" -}}{{- $lexer = "bash" -}}{{- end -}}
     <div class="code-tab-panel">
-      <pre><code>{{ .code }}</code></pre>
+      {{ highlight .code $lexer "" }}
     </div>
     {{ end }}
   </div>

@@ -1,5 +1,11 @@
 {{- $currentPage := . -}}
 
+<div class="sidebar-mobile-header">
+  <button id="sidebar-close" class="icon-btn sidebar-close" type="button" aria-label="Close sidebar">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.22 3.22a.75.75 0 0 1 1.06 0L8 6.94l3.72-3.72a.75.75 0 1 1 1.06 1.06L9.06 8l3.72 3.72a.75.75 0 1 1-1.06 1.06L8 9.06l-3.72 3.72a.75.75 0 1 1-1.06-1.06L6.94 8 3.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg>
+  </button>
+</div>
+
 <!-- Version badge -->
 {{ with .Site.Params.version }}
 <div class="sidebar-version">
