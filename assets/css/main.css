@@ -449,6 +449,7 @@ hr {
 .main-content {
   min-width: 0;
   padding: var(--sp-8) var(--sp-8) var(--sp-16);
+  margin-left: var(--sidebar-w);
 }
 
 .content-inner {
@@ -1454,7 +1455,7 @@ hr {
   }
   .sidebar-overlay.visible { display: block; }
 
-  .main-content { padding: var(--sp-5) var(--sp-4) var(--sp-12); }
+  .main-content { padding: var(--sp-5) var(--sp-4) var(--sp-12); margin-left: 0; }
 
   .site-footer { margin-left: 0; }
 

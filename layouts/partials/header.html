@@ -5,7 +5,7 @@
   </button>
 
   <!-- Logo -->
-  <a class="header-logo" href="{{ "/" | relURL }}" aria-label="{{ .Site.Title }} home">
+  <a class="header-logo" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title }} home">
     {{ with .Site.Params.logo }}
       <img src="{{ . | relURL }}" alt="{{ $.Site.Title }} logo">
     {{ end }}
