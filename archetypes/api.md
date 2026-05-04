@@ -44,4 +44,7 @@ examples:
       data = r.json()
 ---
 
+<!-- VERSIONING NOTE: Place this file in content/{VERSION}/api/{endpoint}.md -->
+<!-- Example: content/v2.3.1/api/get-user.md -->
+
 Describe this endpoint here.

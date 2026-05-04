@@ -339,6 +339,14 @@
       document.getElementById("sidebar-search-results")
     );
 
+    /* ── Version Picker ──────────────────────── */
+    const versionPicker = document.getElementById("version-picker");
+    if (versionPicker) {
+      versionPicker.addEventListener("change", function (e) {
+        window.location.href = e.target.value;
+      });
+    }
+
     /* ── Active Sidebar Link ─────────────────── */
     const currentPath = window.location.pathname;
     document.querySelectorAll(".sidebar-nav-item a").forEach(function (a) {

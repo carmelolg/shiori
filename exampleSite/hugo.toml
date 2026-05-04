@@ -8,13 +8,26 @@ paginate     = 20
   description  = "Official documentation for MyLib — a fast, type-safe utility library for modern applications."
   author       = "carmelolg"
   version      = "2.3.1"
+  currentVersion = "v2.3.1"
+  tagline      = "A fast, type-safe, zero-dependency utility library for modern applications"
+  licenseName  = "MIT"
+  license      = "https://github.com/carmelolg/mylib/blob/main/LICENSE"
+  website      = "https://carmelolg.github.io"
   github       = "https://github.com/carmelolg/mylib"
   editBaseURL  = "https://github.com/carmelolg/mylib/edit/main/docs/content"
   logoText     = "MyLib"
   install      = "npm install mylib"
-  quickStartURL = "/articles/getting-started/"
+  quickStartURL = "/v2.3.1/articles/getting-started/"
   heroTitle    = "MyLib <span>Documentation</span>"
   dateFormat   = "January 2, 2006"
+  
+  # Multi-version support
+  [[params.versions]]
+    label = "v2.3.1"
+    url   = "/v2.3.1/"
+  [[params.versions]]
+    label = "v1.0.0"
+    url   = "/v1.0.0/"
 
 [markup]
   [markup.highlight]

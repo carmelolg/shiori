@@ -8,6 +8,9 @@ toc: true
 diagram: false
 ---
 
+<!-- VERSIONING NOTE: Place this file in content/{VERSION}/design/{name}.md -->
+<!-- Example: content/v2.3.1/design/architecture.md -->
+
 ## Overview
 
 Describe the design decision or architecture here.

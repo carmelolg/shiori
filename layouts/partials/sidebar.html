@@ -6,11 +6,31 @@
   </button>
 </div>
 
-<!-- Version badge -->
+<!-- Version selector/badge -->
+{{ if and .Site.Params.versions (ge (len .Site.Params.versions) 2) }}
+<div class="sidebar-version">
+  <select id="version-picker" class="version-picker" aria-label="Documentation version">
+    {{ $basePath := .Site.Home.RelPermalink | strings.TrimSuffix "/" }}
+    {{- /* Detect current version from page path */ -}}
+    {{- $pageVersion := .Site.Params.currentVersion -}}
+    {{- if .File -}}
+      {{- $path := .File.Dir -}}
+      {{- if in $path "v" -}}
+        {{- $parts := split $path "/" -}}
+        {{- $pageVersion = (print "v" (index $parts 0 | strings.TrimPrefix "v")) -}}
+      {{- end -}}
+    {{- end -}}
+    {{ range .Site.Params.versions }}
+    <option value="{{ $basePath }}{{ .url }}" {{ if eq .label $pageVersion }}selected{{ end }}>{{ .label }}</option>
+    {{ end }}
+  </select>
+</div>
+{{ else }}
 {{ with .Site.Params.version }}
 <div class="sidebar-version">
   <span class="version-tag">v{{ . }}</span>
 </div>
+{{ end }}
 {{ end }}
 
 <!-- Sidebar search -->
@@ -31,32 +51,46 @@
 </div>
 
 <nav aria-label="Documentation navigation">
-  {{- range .Site.Sections }}
-  {{- $section := . }}
-  {{- $sectionPages := .Pages.ByWeight }}
+  {{- /* Get current version from URL or use currentVersion param */ -}}
+  {{- $currentVersion := .Site.Params.currentVersion -}}
+  {{- if .File -}}
+    {{- $path := .File.Dir -}}
+    {{- if in $path "v" -}}
+      {{- $parts := split $path "/" -}}
+      {{- $currentVersion = index $parts 0 -}}
+    {{- end -}}
+  {{- end -}}
+  
+  {{- /* Get the version section */ -}}
+  {{- $versionPage := .Site.GetPage (print "/" $currentVersion) -}}
+  {{- if $versionPage -}}
+    {{- range $versionPage.Sections -}}
+    {{- $section := . -}}
+    {{- $sectionPages := .Pages.ByWeight -}}
 
-  {{ if $sectionPages }}
-  <div class="sidebar-section">
-    <span class="sidebar-section-title">{{ .Title }}</span>
+    {{ if $sectionPages }}
+    <div class="sidebar-section">
+      <span class="sidebar-section-title">{{ .Title }}</span>
 
-    <!-- Section index link -->
-    <ul class="sidebar-nav-list">
-      {{- range $sectionPages }}
-      {{- $isActive := eq $currentPage.RelPermalink .RelPermalink }}
-      <li class="sidebar-nav-item{{ if $isActive }} active{{ end }}">
-        <a href="{{ .RelPermalink }}" aria-current="{{ if $isActive }}page{{ else }}false{{ end }}">
-          {{- if eq .Type "api" }}
-            {{- with .Params.method }}
-            <span class="method-badge-xs badge-{{ . | lower }}">{{ . | upper }}</span>
+      <!-- Section index link -->
+      <ul class="sidebar-nav-list">
+        {{- range $sectionPages }}
+        {{- $isActive := eq $currentPage.RelPermalink .RelPermalink }}
+        <li class="sidebar-nav-item{{ if $isActive }} active{{ end }}">
+          <a href="{{ .RelPermalink }}" aria-current="{{ if $isActive }}page{{ else }}false{{ end }}">
+            {{- if eq .Type "api" }}
+              {{- with .Params.method }}
+              <span class="method-badge-xs badge-{{ . | lower }}">{{ . | upper }}</span>
+              {{- end }}
             {{- end }}
-          {{- end }}
-          {{- .Title }}
-        </a>
-      </li>
-      {{- end }}
-    </ul>
-  </div>
-  <hr class="sidebar-divider">
-  {{ end }}
-  {{- end }}
+            {{- .Title }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+    <hr class="sidebar-divider">
+    {{ end }}
+    {{- end -}}
+  {{- end -}}
 </nav>

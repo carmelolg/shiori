@@ -1,7 +1,18 @@
 {{ if not .IsHome }}
 <nav class="breadcrumbs" aria-label="Breadcrumb">
-  <a href="{{ "/" | relURL }}">{{ i18n "home" | default "Home" }}</a>
+  <a href="{{ .Site.Home.RelPermalink }}">{{ i18n "home" | default "Home" }}</a>
   <span class="sep" aria-hidden="true">/</span>
+
+  {{ if .File }}
+    {{ $path := .File.Dir }}
+    {{ if in $path "v" }}
+      {{ $parts := split $path "/" }}
+      {{ $version := index $parts 0 }}
+      {{ $basePath := .Site.Home.RelPermalink | strings.TrimSuffix "/" }}
+      <a href="{{ $basePath }}/{{ $version }}/">{{ $version }}</a>
+      <span class="sep" aria-hidden="true">/</span>
+    {{ end }}
+  {{ end }}
 
   {{ if .Section }}
   {{ with .Site.GetPage .Section }}
