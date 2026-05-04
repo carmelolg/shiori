@@ -41,7 +41,7 @@
       <div class="footer-section">
         <p class="footer-section-title">Documentation</p>
         <nav class="footer-nav" aria-label="Documentation links">
-          {{ $currentVersion := "v2.3.1" }}
+          {{ $currentVersion := .Site.Params.currentVersion | default "v2.0.0-rc2" }}
           {{ if .File }}
             {{ $parts := split .File.Dir "/" }}
             {{ if gt (len $parts) 0 }}
@@ -54,6 +54,11 @@
           {{ if $versionPage }}
             {{ range $versionPage.Sections }}
               <a href="{{ .RelPermalink }}" class="footer-nav-link">{{ .Title }}</a>
+            {{ end }}
+          {{ else }}
+            <!-- Fallback: show version links -->
+            {{ range .Site.Params.versions }}
+            <a href="/JCAL/{{ .version }}/" class="footer-nav-link">{{ .label }}</a>
             {{ end }}
           {{ end }}
         </nav>
